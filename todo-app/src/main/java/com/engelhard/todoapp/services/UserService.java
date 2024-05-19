@@ -1,9 +1,11 @@
 package com.engelhard.todoapp.services;
 
+import com.engelhard.todoapp.models.entities.Token;
 import com.engelhard.todoapp.models.dtos.UserLoginDTO;
 import com.engelhard.todoapp.models.dtos.UserRegisterDTO;
 import com.engelhard.todoapp.models.entities.User;
 import java.util.UUID;
+import java.util.List;
 
 public interface UserService {
     // Register
@@ -20,4 +22,10 @@ public interface UserService {
     
     // Find user by email
     User findByEmail(String email);
+
+    // Get all users
+    List<User> getAllUsers();
+
+    // Create token
+    Token createToken(User user) throws Exception;
 }
