@@ -26,6 +26,9 @@ public class Task {
     @Column(name = "description", unique = true, nullable = false)
     private String description;
 
+    @Column(name = "user_id", nullable = false)
+    private String userId;
+
     public Task(String title, String description) {
         super();
         this.title = title;

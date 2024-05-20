@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
     // find user by email
     @Override
     public User findByEmail(String email) {
-        return userRepository.findByUsernameOrEmail(email, email);
+        return userRepository.findByEmail(email);
     }
 
     // register user
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
     public String register(UserRegisterDTO data) throws Exception {
         try {
             // Check if user exists
-            if (userRepository.findByUsernameOrEmail(data.getFullname(), data.getEmail()) != null) {
+            if (userRepository.findByEmail(data.getEmail()) != null) {
                 throw new Exception("User already exists");
             }
 
@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
     public String login(UserLoginDTO data) throws Exception {
         try {
             // Find user by email
-            User user = userRepository.findByUsernameOrEmail(data.getEmail(), data.getEmail());
+            User user = userRepository.findByEmail(data.getEmail());
 
             // Check if user exists
             if (user == null) {

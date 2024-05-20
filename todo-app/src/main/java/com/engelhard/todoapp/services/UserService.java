@@ -28,4 +28,6 @@ public interface UserService {
 
     // Create token
     Token createToken(User user) throws Exception;
+
+    // TODO: Implement verify token
 }

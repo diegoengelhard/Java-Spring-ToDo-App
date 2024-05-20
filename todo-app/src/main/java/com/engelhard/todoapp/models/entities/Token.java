@@ -27,7 +27,7 @@ public class Token {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "code")
-	private UUID code;
+	private UUID id;
 	
 	@Column(name = "content")
 	private String content;

@@ -9,7 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.http.HttpStatus;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import com.engelhard.todoapp.models.dtos.UserLoginDTO;
 import com.engelhard.todoapp.models.dtos.UserRegisterDTO;
 import com.engelhard.todoapp.models.entities.Token;
@@ -17,6 +21,7 @@ import com.engelhard.todoapp.models.entities.User;
 import com.engelhard.todoapp.services.UserService;
 
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 @RequestMapping("/api/user")
@@ -61,7 +66,11 @@ public class UserController {
                 // Create token & return
                 try {
                     Token token = userService.createToken(user);
-                    return new ResponseEntity<>(token, HttpStatus.OK);
+                    Map<String, Object> response = new HashMap<>();
+                    response.put("message", "Login successful");
+                    response.put("token", token);
+                    response.put("user", user);
+                    return new ResponseEntity<>(response, HttpStatus.OK);
                 } catch (Exception e) {
                     e.printStackTrace();
                     return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -76,12 +85,12 @@ public class UserController {
     }
 
     // Get all users
-    @PostMapping("/all")
+    @GetMapping("/all")
     public ResponseEntity<?> getAllUsers() {
         try {
             List<User> users = userService.getAllUsers();
 
-            if (!users.isEmpty()) { 
+            if (!users.isEmpty()) {
                 return new ResponseEntity<>(users, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>("No users found", HttpStatus.BAD_REQUEST);
@@ -90,5 +99,11 @@ public class UserController {
             System.out.println(e);
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    // Greeting
+    @GetMapping("/greeting")
+    public String greeting() {
+        return "Hello, World!";
     }
 }
