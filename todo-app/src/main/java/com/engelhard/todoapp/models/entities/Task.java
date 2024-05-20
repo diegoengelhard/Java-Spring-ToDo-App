@@ -26,12 +26,13 @@ public class Task {
     @Column(name = "description", unique = true, nullable = false)
     private String description;
 
-    @Column(name = "user_id", nullable = false)
-    private String userId;
+    @Column(name = "user_id", nullable = false, columnDefinition = "uuid")
+    private UUID userId;
 
     public Task(String title, String description) {
         super();
         this.title = title;
         this.description = description;
+        this.userId = userId;
     }
 }
